@@ -1,6 +1,6 @@
-def state_space_loader():
+def state_space_loader(path):
     lines = []
-    with open('input.in') as f:
+    with open(path) as f:
         for line in f:
             if line.strip()[0] == '#':
                 continue
@@ -25,8 +25,8 @@ def state_space_loader():
     return initial_state, goal_state, transitions
 
 
-def heuristic_loader():
-    return [(line.strip()[:line.find(':')], int(line.strip()[(line.find(' ')+1):])) for line in open('heuristic.in', 'r')]
+def heuristic_loader(path):
+    return [(line.strip()[:line.find(':')], int(line.strip()[(line.find(' ')+1):])) for line in open(path, 'r')]
 
 
 
