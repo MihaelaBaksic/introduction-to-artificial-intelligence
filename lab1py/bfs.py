@@ -1,8 +1,8 @@
 
 def search(initial_state, successor, goal_state):
     open_nodes = list()
-    # tuple (state, cost)
-    open_nodes.append((initial_state, 0))
+    # tuple (state, cost, accumulated_cost)
+    open_nodes.append((initial_state, 0, 0))
 
     # set of traversed states
     closed_states = set()
@@ -12,15 +12,15 @@ def search(initial_state, successor, goal_state):
         closed_states.add(current_node[0])
 
         if current_node[0] == goal_state:
-            return 'yes', len(closed_states)
+            return 'yes', len(closed_states), current_node[2]
 
         for next_node in successor[current_node[0]]:
             if next_node[0] not in closed_states:
-                open_nodes.append(next_node)
+                open_nodes.append(next_node + ((next_node[1] + current_node[2]),))
 
         print(open_nodes)
 
-    return 'no', len(closed_states)
+    return 'no', len(closed_states), None
 
 
 def get_path(closed_nodes):
