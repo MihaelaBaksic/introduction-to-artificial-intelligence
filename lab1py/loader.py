@@ -15,14 +15,14 @@ def state_space_loader(path):
         state = line[:line.find(':')]
         trans_string = line[(line.find(' ')+1):]
 
-        next_states_set = set()
+        next_states_list = list()
         for next_state in trans_string.split(' '):
-            (state, cost) = tuple(next_state.split(','))
-            next_states_set.add((state, int(cost)))
+            (state_n, cost) = tuple(next_state.split(','))
+            next_states_list.append((state_n, int(cost)))
 
-        transitions[state] = next_states_set
+        transitions[state] = next_states_list
 
-    return initial_state, goal_state, transitions
+    return initial_state, transitions, goal_state
 
 
 def heuristic_loader(path):
