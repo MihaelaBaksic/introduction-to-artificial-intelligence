@@ -26,7 +26,7 @@ def state_space_loader(path):
 
 
 def heuristic_loader(path):
-    return [(line.strip()[:line.find(':')], int(line.strip()[(line.find(' ')+1):])) for line in open(path, 'r')]
+    return {line.strip()[:line.find(':')]: int(line.strip()[(line.find(' ')+1):]) for line in open(path, 'r')}
 
 
 

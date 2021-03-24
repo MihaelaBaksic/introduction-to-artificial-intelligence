@@ -1,6 +1,8 @@
 import loader
 import args_parser
 import bfs
+import ucs
+import astar
 
 
 def main():
@@ -10,10 +12,10 @@ def main():
         # Initial state, successor, goal_state
         print(bfs.search(state_space[0], state_space[1], state_space[2]))
     elif args_parser.args.alg == 'ucs':
-        a = 'call ucs'
+        print(ucs.search(state_space[0], state_space[1], state_space[2]))
     elif args_parser.args.alg == 'astar':
         heuristic = loader.heuristic_loader(args_parser.args.h)
-        a = 'call astar'
+        print(astar.search(state_space[0], state_space[1], state_space[2], heuristic))
     else:
         raise ValueError('Wrong alg parameter')
 

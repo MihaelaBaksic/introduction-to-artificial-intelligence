@@ -1,5 +1,5 @@
 
-def search(initial_state, successor, goal_state):
+def search(initial_state, successor, goal_state, heuristc):
     open_nodes = list()
     # tuple (state, cost)
     open_nodes.append((initial_state, 0))
@@ -17,7 +17,8 @@ def search(initial_state, successor, goal_state):
         for next_node in successor[current_node[0]]:
             if next_node[0] not in closed_states:
                 open_nodes.append(next_node)
-
+        # open_nodes sorting
+        open_nodes.sort(key=lambda node: (node[1] + heuristc[node[0]]))
         print(open_nodes)
 
     return 'no', len(closed_states)
