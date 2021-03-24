@@ -24,4 +24,4 @@ def search(initial_state, successor, goal_state):
 
 
 def get_path(closed_nodes):
-    return 'path', 0  # path and total cost
+    return 'path'
