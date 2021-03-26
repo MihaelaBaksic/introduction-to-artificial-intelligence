@@ -20,6 +20,8 @@ def state_space_loader(path):
             (state_n, cost) = tuple(next_state.split(','))
             next_states_list.append((state_n, int(cost)))
 
+        next_states_list.sort(key=lambda s: s[0])  # order alphabetically
+
         transitions[state] = next_states_list
 
     return initial_state, transitions, goal_state
