@@ -26,7 +26,7 @@ def state_space_loader(path):
 
         transitions[state] = next_states_list
 
-    return initial_state, transitions, goal_states
+    return initial_state, transitions, goal_states, transitions.keys()
 
 
 def heuristic_loader(path):

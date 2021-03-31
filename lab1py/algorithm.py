@@ -21,7 +21,7 @@ def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
         closed_states.add(current_node[1])
 
         if current_node[1] in goal_state:
-            return 'yes', len(closed_states), current_node[3], path_calc.get_path(current_node[1:])
+            return 'yes', len(closed_states), current_node[3], current_node
 
         for next_state in successor[current_node[1]]:
             if next_state[0] not in closed_states:
@@ -31,4 +31,4 @@ def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
                                + next_state
                                + ((next_state[1] + current_node[3]), current_node))
 
-    return 'no', len(closed_states), path_calc.get_path(current_node[1:])
+    return 'no', len(closed_states), current_node
