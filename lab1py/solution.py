@@ -1,8 +1,6 @@
 import loader
 import args_parser
-import bfs
-import ucs
-import astar
+import algorithm
 import locale
 import output
 
@@ -15,15 +13,15 @@ def main():
     if args_parser.args.alg == 'bfs':
         # Initial state, successor, goal_state
         output.search_output('BFS', args_parser.args.ss,
-                             *astar.search(state_space[0], state_space[1], state_space[2], None, g_bfs, init_bfs_ucs))
+                             *algorithm.search(state_space[0], state_space[1], state_space[2], None, g_bfs, init_bfs_ucs))
     elif args_parser.args.alg == 'ucs':
         output.search_output('UCS', args_parser.args.ss,
-                             *astar.search(state_space[0], state_space[1], state_space[2], None, g_ucs, init_bfs_ucs))
+                             *algorithm.search(state_space[0], state_space[1], state_space[2], None, g_ucs, init_bfs_ucs))
 
     elif args_parser.args.alg == 'astar':
         heuristic = loader.heuristic_loader(args_parser.args.h)
         output.search_output('A-STAR', args_parser.args.ss,
-                             *astar.search(state_space[0], state_space[1], state_space[2], heuristic, g_astar, init_astar))
+                             *algorithm.search(state_space[0], state_space[1], state_space[2], heuristic, g_astar, init_astar))
 
     else:
         raise ValueError('Wrong alg parameter')
