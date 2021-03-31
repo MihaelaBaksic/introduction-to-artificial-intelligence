@@ -2,10 +2,11 @@ import path_calc
 import heapq
 
 
-def search(initial_state, successor, goal_state, heuristic):
+def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
     open_nodes = []
     # tuple (g(x), state, cost, accumulated_cost, parent)
-    heapq.heappush(open_nodes, (heuristic[initial_state], initial_state, 0, 0, None))
+    init_priority = init_fun(initial_state, heuristic)
+    heapq.heappush(open_nodes, (init_priority, initial_state, 0, 0, None))
 
     # set of traversed states
     closed_states = set()
@@ -26,8 +27,9 @@ def search(initial_state, successor, goal_state, heuristic):
 
         for next_state in successor[current_node[1]]:
             if next_state[0] not in closed_states:
+                priority = g_fun(current_node, next_state, heuristic)
                 heapq.heappush(open_nodes,
-                               ((heuristic[next_state[0]] + next_state[1] + current_node[3]),) + next_state
+                               (priority,) + next_state
                                + ((next_state[1] + current_node[3]), current_node))
 
     return 'no', len(closed_states), path_calc.get_path(current_node[1:])
