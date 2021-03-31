@@ -10,7 +10,9 @@ def search(initial_state, successor, goal_state):
     closed_states = set()
 
     while len(open_nodes) != 0:
-        current_node = open_nodes.pop(0)
+        # current_node = open_nodes.pop(0)
+        current_node = min(open_nodes, key=lambda node: (node[2], node[0]))
+        open_nodes.remove(current_node)
 
         if current_node[0] in closed_states:
             continue
@@ -24,7 +26,7 @@ def search(initial_state, successor, goal_state):
             if next_node[0] not in closed_states:
                 open_nodes.append(next_node + ((next_node[1] + current_node[2]), current_node))  # third is accumulated cost
         # open_nodes sorting
-        open_nodes.sort(key=lambda node: (node[2], node[0]))  # accumulated cost
+        # open_nodes.sort(key=lambda node: (node[2], node[0]))  # accumulated cost
         # print(open_nodes)
 
     return 'no', len(closed_states), path_calc.get_path(current_node)
