@@ -3,7 +3,9 @@ import args_parser
 import bfs
 import ucs
 import astar
+import locale
 
+locale.setlocale(locale.LC_ALL, 'hr_HR')
 
 def main():
     state_space = loader.state_space_loader(args_parser.args.ss)

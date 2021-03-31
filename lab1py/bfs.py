@@ -11,9 +11,13 @@ def search(initial_state, successor, goal_state):
 
     while len(open_nodes) != 0:
         current_node = open_nodes.pop(0)
+
+        if current_node[0] in closed_states:
+            continue
+
         closed_states.add(current_node[0])
 
-        if current_node[0] == goal_state:
+        if current_node[0] in goal_state:
             return 'yes', len(closed_states), current_node[2], path_calc.get_path(current_node)
 
         for next_node in successor[current_node[0]]:
