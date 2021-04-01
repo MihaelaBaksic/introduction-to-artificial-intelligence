@@ -10,6 +10,9 @@ def evaluate_optimistic(successor, goal_states, states, heuristic):
 
     pending_states[0:0] = states
 
+    pending_states.sort(reverse=True, key=lambda s: heuristic[s])
+    print('rivrso')
+
     while len(pending_states):
         current_starting = pending_states[0]
 
@@ -29,5 +32,9 @@ def evaluate_optimistic(successor, goal_states, states, heuristic):
     return checked_states
 
 
-def evaluate_consistent():
-    a = 0
+def evaluate_consistent(successor):
+    evaluation = list()
+    for state in successor:
+        for succ_state in successor[state]:
+            evaluation.append((state,) + succ_state)
+    return evaluation

@@ -23,5 +23,18 @@ def optimistic_output(evaluation, path):
 
     print('[CONCLUSION]: Heuristic is {}optimistic.'.format('' if optimistic else 'not '))
 
-def consistent_output():
-    a = 0
+
+def consistent_output(evaluation, path, h):
+
+    print('# HEURISTIC_CONSISTENT: {}'.format(path))
+    consistent = True
+    for e in evaluation:
+        condition = (int(h[e[0]]) <= int(h[e[1]]) + int(e[2]))
+        if not condition:
+            consistent = False
+        print('[CONDITION]: {} h({}) <= h({}) + c: {} <= {} + {}'.format(
+            '[OK]' if condition else '[ERR]',
+            e[0], e[1],
+            h[e[0]], h[e[1]], e[2]
+        ))
+    print('[CONCLUSION]: Heuristic is {}consistent.'.format('' if consistent else 'not '))
