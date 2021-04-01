@@ -12,7 +12,7 @@ def search_output(alg, file_path, found, visited_no, total_cost, goal_node):
 
 
 def optimistic_output(evaluation, path):
-    print('# HEURISTIC_OPTIMISTIC: {}'.format(path))
+    print('# HEURISTIC-OPTIMISTIC: {}'.format(path))
     optimistic = True
     for state in evaluation:
         (heuristic, oracle) = evaluation[state]
@@ -26,13 +26,13 @@ def optimistic_output(evaluation, path):
 
 def consistent_output(evaluation, path, h):
 
-    print('# HEURISTIC_CONSISTENT: {}'.format(path))
+    print('# HEURISTIC-CONSISTENT: {}'.format(path))
     consistent = True
     for e in evaluation:
         condition = (int(h[e[0]]) <= int(h[e[1]]) + int(e[2]))
         if not condition:
             consistent = False
-        print('[CONDITION]: {} h({}) <= h({}) + c: {} <= {} + {}'.format(
+        print('[CONDITION]: {} h({}) <= h({}) + c: {:.1f} <= {:.1f} + {:.1f}'.format(
             '[OK]' if condition else '[ERR]',
             e[0], e[1],
             h[e[0]], h[e[1]], e[2]
