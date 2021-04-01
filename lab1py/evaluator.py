@@ -17,7 +17,7 @@ def evaluate_optimistic(successor, goal_states, states, heuristic):
         current_starting = pending_states[0]
 
         *alg_results, final_node = algorithm.search(current_starting, successor, goal_states, heuristic, util.g_ucs,
-                                                    util.init_bfs_ucs)
+                                                    util.init_ucs)
 
         oracle = 0
         while final_node is not None:

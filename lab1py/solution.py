@@ -5,7 +5,8 @@ import locale
 import output
 import evaluator
 import util
-
+import bfs
+import ucs
 locale.setlocale(locale.LC_ALL, 'hr_HR')
 
 
@@ -20,10 +21,10 @@ def main():
     if args_parser.args.alg == 'bfs':
         # Initial state, successor, goal_state
         output.search_output('BFS', args_parser.args.ss,
-                             *algorithm.search(*state_space, None, util.g_bfs, util.init_bfs_ucs))
+                             *bfs.search(*state_space))
     elif args_parser.args.alg == 'ucs':
         output.search_output('UCS', args_parser.args.ss,
-                             *algorithm.search(*state_space, None, util.g_ucs, util.init_bfs_ucs))
+                             *ucs.search(*state_space))
 
     elif args_parser.args.alg == 'astar':
         output.search_output('A-STAR', args_parser.args.ss,

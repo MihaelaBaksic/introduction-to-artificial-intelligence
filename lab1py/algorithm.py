@@ -25,13 +25,16 @@ def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
 
         for next_state in successor[current_node[1]]:
             priority = g_fun(current_node, next_state, heuristic)
-            if next_state[0] not in closed_states or closed_states[next_state[0]] >= priority:
-                if next_state[0] in closed_states and closed_states[next_state[0]] >= priority:
-                    del closed_states[next_state[0]]
+            if next_state[0] not in closed_states:
                 heapq.heappush(open_nodes,
                                (priority,)
                                + next_state
                                + ((next_state[1] + current_node[3]), current_node))
-
+            elif closed_states[next_state[0]] >= priority:
+                del closed_states[next_state[0]]
+                heapq.heappush(open_nodes,
+                               (priority,)
+                               + next_state
+                               + ((next_state[1] + current_node[3]), current_node))
 
     return 'no', len(closed_states), current_node
