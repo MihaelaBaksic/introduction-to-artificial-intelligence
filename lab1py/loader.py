@@ -20,7 +20,7 @@ def state_space_loader(path):
         if trans_string != '':
             for next_state in trans_string.split(' '):
                 (state_n, cost) = tuple(next_state.split(','))
-                next_states_list.append((state_n, int(cost)))
+                next_states_list.append((state_n, float(cost)))
 
         next_states_list.sort(key=lambda s: s[0])  # order alphabetically
 
@@ -30,4 +30,4 @@ def state_space_loader(path):
 
 
 def heuristic_loader(path):
-    return {line.strip()[:line.find(':')]: int(line.strip()[(line.find(' ') + 1):]) for line in open(path, 'r')}
+    return {line.strip()[:line.find(':')]: float(line.strip()[(line.find(' ') + 1):]) for line in open(path, 'r')}
