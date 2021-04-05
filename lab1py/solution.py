@@ -1,6 +1,6 @@
 import loader
 import args_parser
-import algorithm
+import astar
 import locale
 import output
 import evaluator
@@ -28,7 +28,7 @@ def main():
 
     elif args_parser.args.alg == 'astar':
         output.search_output('A-STAR', args_parser.args.ss,
-                             *algorithm.search(*state_space, heuristic, util.g_astar, util.init_astar))
+                             *astar.search(*state_space, heuristic, util.g_astar, util.init_astar))
 
     if args_parser.args.check_optimistic:
         eval_res = evaluator.evaluate_optimistic(*state_space[1:], states, heuristic)

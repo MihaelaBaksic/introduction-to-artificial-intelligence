@@ -9,7 +9,6 @@ def search(initial_state, successor, goal_state):
 
     # set of traversed states
     closed_states = set()
-    closed = 0
 
     while len(open_nodes) != 0:
 
@@ -19,9 +18,9 @@ def search(initial_state, successor, goal_state):
             continue
 
         closed_states.add(current_node[1])
-        closed += 1
 
         if current_node[1] in goal_state:
+            # return found, no_closed_states, total_cost, goal_node
             return 'yes', len(closed_states), current_node[3], current_node
 
         for next_state in successor[current_node[1]]:
@@ -30,4 +29,4 @@ def search(initial_state, successor, goal_state):
                                ((next_state[1] + current_node[3]),) + next_state
                                + ((next_state[1] + current_node[3]), current_node))
 
-    return 'no', len(closed_states), current_node
+    return 'no', len(closed_states), current_node[3], current_node

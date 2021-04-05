@@ -1,4 +1,4 @@
-import path_calc
+
 import heapq
 
 
@@ -15,12 +15,14 @@ def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
 
         current_node = heapq.heappop(open_nodes)
 
+        # if the less expensive node with same state is already closed, continue
         if current_node[1] in closed_states and closed_states[current_node[1]] < current_node[0]:
             continue
 
         closed_states[current_node[1]] = current_node[0]
 
         if current_node[1] in goal_state:
+            # return found, no_closed_states, total_cost, goal_node
             return 'yes', len(closed_states), current_node[3], current_node
 
         for next_state in successor[current_node[1]]:
@@ -37,4 +39,4 @@ def search(initial_state, successor, goal_state, heuristic, g_fun, init_fun):
                                + next_state
                                + ((next_state[1] + current_node[3]), current_node))
 
-    return 'no', len(closed_states), current_node
+    return 'no', len(closed_states), current_node[3], current_node

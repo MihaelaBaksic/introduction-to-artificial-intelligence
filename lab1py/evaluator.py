@@ -1,6 +1,6 @@
 import util
 import output
-import algorithm
+import astar
 
 
 def evaluate_optimistic(successor, goal_states, states, heuristic):
@@ -15,8 +15,8 @@ def evaluate_optimistic(successor, goal_states, states, heuristic):
     while len(pending_states):
         current_starting = pending_states[0]
 
-        *alg_results, final_node = algorithm.search(current_starting, successor, goal_states, heuristic, util.g_ucs,
-                                                    util.init_ucs)
+        *alg_results, final_node = astar.search(current_starting, successor, goal_states, heuristic, util.g_ucs,
+                                                util.init_ucs)
 
         oracle = 0
         while final_node is not None:
