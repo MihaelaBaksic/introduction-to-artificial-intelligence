@@ -6,7 +6,7 @@ def load_clauses(path: str):
                 continue
             clauses.append({x.strip().lower() for x in line.split('v')})
 
-    return clauses
+    return clauses[-1:], clauses[0:-1]
 
 
 
