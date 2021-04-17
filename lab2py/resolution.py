@@ -2,8 +2,10 @@ from util import *
 
 
 def resolution(premises: list, set_of_support: list):
-    new = list()
     resolved_pairs = list()
+
+    premises = remove_irrelevant(premises)
+    set_of_support = remove_irrelevant(set_of_support)
 
     while True:
         new = list()
