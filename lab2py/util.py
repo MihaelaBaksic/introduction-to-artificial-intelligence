@@ -1,9 +1,12 @@
+import itertools
+
+
 def complement(c):
     return '~' + c if c[0] != '~' else c[1:]
 
 
 def negate(c):
-    return '~'+c
+    return '~' + c
 
 
 def get_atom(literal: str):
@@ -19,10 +22,9 @@ def remove_redundant(clauses: []):
 
 
 def is_tautology(clause):
-    for (c1, c2) in clause:
+    for c1, c2 in itertools.combinations(clause, 2):
         if negate(c1) in c2:
             return True
-
     return False
 
 
