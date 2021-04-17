@@ -1,10 +1,9 @@
+def complement(c):
+    return '~' + c if c[0] != '~' else c[1:]
 
 
-def complementary_literals(literal1: str, literal2: str):
-    if len(literal1) > len(literal2):
-        return literal1[1:] == literal2
-    else:
-        return literal1 == literal2[1:]
+def negate(c):
+    return '~'+c
 
 
 def get_atom(literal: str):
@@ -21,7 +20,15 @@ def remove_redundant(clauses: []):
 
 def is_tautology(clause):
     for (c1, c2) in clause:
-        if complementary_literals(c1, c2):
+        if negate(c1) in c2:
             return True
 
     return False
+
+
+def is_subset(l1, l2):
+    for elem in l1:
+        if elem not in l2:
+            return False
+
+    return True

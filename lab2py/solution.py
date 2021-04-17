@@ -1,13 +1,15 @@
 import loader
 from args_parser import args
+from resolution import resolution
 
 if __name__ == '__main__':
 
-    goal_clause, clauses = loader.load_clauses(args.path_clauses)
+    sos, premises = loader.load_clauses(args.path_clauses)
 
     if args.action == 'resolution':
-        print(clauses)
-        print(goal_clause)
+        print(premises)
+        print(sos)
+        print(resolution(premises, sos))
     else:
         # load commands
         print(0)
