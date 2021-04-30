@@ -9,7 +9,7 @@ def load_clauses(path: str):
                 continue
             clauses.append(frozenset({x.strip() for x in line.lower().split(' v')}))
 
-    return negate_goal(clauses[-1]), set(clauses[0:-1])
+    return clauses[-1], negate_goal(clauses[-1]), set(clauses[0:-1])
 
 
 def load_commands(path: str):

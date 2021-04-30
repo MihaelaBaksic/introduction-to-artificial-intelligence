@@ -3,20 +3,27 @@ from util import *
 
 def resolution(premises: set, neg_goal: set):
     knowledge = remove_redundant(remove_irrelevant(premises))
-    set_of_support = neg_goal
+    set_of_support = remove_redundant(remove_irrelevant(neg_goal))
+
+    parents = dict()
 
     while True:
-        new = []
+        new = set()
+        # print(knowledge)
         for c1, c2 in select_clauses(set_of_support, knowledge):
             res = remove_irrelevant(resolve(c1, c2))
-            print(str(c1) + ' + ' + str(c2) + ' = ' + str(res))
-            if set() in res:
-                return True
 
-            new.extend(res)
+            for r in res:
+                parents[to_string(r)] = (to_string(c1), to_string(c2))
+
+            # print(str(c1) + ' + ' + str(c2) + ' = ' + str(res))
+            if set() in res:
+                return True, parents
+
+            new = new.union(res)
 
         if all(r in knowledge.union(set_of_support) for r in new):
-            return False
+            return False, parents
 
         knowledge = remove_redundant(remove_irrelevant(knowledge.union(set_of_support)))
         set_of_support = remove_redundant(remove_irrelevant(new))
@@ -34,14 +41,6 @@ def select_clauses(sos, knowledge):
                 selected_clauses.append((clause1, clause2))
 
     return selected_clauses
-
-
-def can_be_resolved(c1, c2):
-    for a1 in c1:
-        if complement(a1) in c2:
-            return True
-
-    return False
 
 
 def resolve(c1, c2):
