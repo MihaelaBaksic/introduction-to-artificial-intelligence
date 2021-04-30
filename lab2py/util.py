@@ -65,7 +65,13 @@ def print_results(resolution: dict):
                 premises.append(r)
 
     except KeyError:
-        return
+        for child, parents in resolution.items():
+            if parents[0] not in resolution and parents[0] not in premises:
+                premises.append(parents[0])
+            if parents[1] not in resolution and parents[1] not in premises:
+                premises.append(parents[1])
+
+            resolvents.insert(0, (child, parents[0], parents[1]))
 
     resolvents = [(r[0], get_index(r[1], premises, resolvents), get_index(r[2], premises, resolvents)) for r in
                   resolvents]
