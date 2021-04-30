@@ -18,7 +18,7 @@ def remove_irrelevant(clauses: []):
 
 
 def remove_redundant(clauses: []):
-    return [c1 for c1 in clauses if not any(c1 < c2 for c2 in clauses)]
+    return [c1 for c1 in clauses if not any(c1 >= c2 and c1 != c2 for c2 in clauses)]
 
 
 def is_tautology(clause):

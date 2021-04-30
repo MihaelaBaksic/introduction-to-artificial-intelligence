@@ -7,9 +7,13 @@ def load_clauses(path: str):
         for line in f:
             if line.strip()[0] == '#':
                 continue
-            clauses.append({x.strip() for x in line.lower().split('v')})
+            clauses.append({x.strip() for x in line.lower().split(' v')})
 
     return negate_goal(clauses[-1]), clauses[0:-1]
+
+
+def load_commands(path: str):
+    commands = []
 
 
 def negate_goal(goals):
