@@ -1,7 +1,7 @@
 from util import *
 
 
-def resolution(premises: list, neg_goal: list):
+def resolution(premises: set, neg_goal: set):
     knowledge = remove_redundant(remove_irrelevant(premises))
     set_of_support = neg_goal
 
@@ -15,10 +15,10 @@ def resolution(premises: list, neg_goal: list):
 
             new.extend(res)
 
-        if all(r in knowledge + set_of_support for r in new):
+        if all(r in knowledge.union(set_of_support) for r in new):
             return False
 
-        knowledge = remove_redundant(remove_irrelevant(knowledge + set_of_support))
+        knowledge = remove_redundant(remove_irrelevant(knowledge.union(set_of_support)))
         set_of_support = remove_redundant(remove_irrelevant(new))
 
 
@@ -26,7 +26,7 @@ def select_clauses(sos, knowledge):
     # at least one in the pair should come from set of support
     selected_clauses = []
 
-    second = sos + knowledge
+    second = sos.union(knowledge)
 
     for clause1 in sos:
         for clause2 in second:
@@ -46,4 +46,4 @@ def can_be_resolved(c1, c2):
 
 def resolve(c1, c2):
     temp = c1.union(c2)
-    return [temp.difference({c, complement(c)}) for c in temp if '~' + c in temp]
+    return [frozenset(temp.difference({c, complement(c)})) for c in temp if '~' + c in temp]
