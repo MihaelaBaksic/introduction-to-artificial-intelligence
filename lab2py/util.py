@@ -109,3 +109,10 @@ def get_index(clause, premises, resolvents):
             return prem_len + i + 1
 
     return -1
+
+
+def print_knowledge(clauses: set):
+    print('Constructed with knowledge:')
+    for c in clauses:
+        print(to_string(c))
+    print('')
