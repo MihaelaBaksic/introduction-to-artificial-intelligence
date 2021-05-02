@@ -2,14 +2,6 @@ def complement(c):
     return '~' + c if c[0] != '~' else c[1:]
 
 
-def negate(c):
-    return '~' + c
-
-
-def get_atom(literal: str):
-    return literal[1:] if literal[0] == '~' else literal
-
-
 def remove_irrelevant(clauses: set):
     return {clause for clause in clauses if not is_tautology(clause)}
 
@@ -31,14 +23,6 @@ def can_be_resolved(c1, c2):
             return True
 
     return False
-
-
-def is_subset(l1, l2):
-    for elem in l1:
-        if elem not in l2:
-            return False
-
-    return True
 
 
 def print_results(resolution: dict):

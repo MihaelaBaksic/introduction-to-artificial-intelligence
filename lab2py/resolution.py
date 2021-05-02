@@ -5,12 +5,19 @@ def resolution(premises: set, neg_goal: set):
     knowledge = remove_redundant(remove_irrelevant(premises))
     set_of_support = remove_redundant(remove_irrelevant(neg_goal))
 
+    checked = set()
+
     parents = dict()
 
     while True:
         new = set()
         # print(knowledge)
         for c1, c2 in select_clauses(set_of_support, knowledge):
+
+            if (c1, c2) in checked or (c2, c1) in checked:
+                continue
+            checked.add((c1, c2))
+
             res = remove_irrelevant(resolve(c1, c2))
 
             for r in res:
