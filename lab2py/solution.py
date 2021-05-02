@@ -1,7 +1,7 @@
 import loader
 from args_parser import args
 from resolution import resolution
-from util import print_results
+from util import print_results, print_knowledge
 from util import to_string
 from cooking import cooker
 
@@ -14,7 +14,10 @@ if __name__ == '__main__':
         # print(sos)
         result, resolution_d = resolution(premises, sos)
 
-        print_results(resolution_d)
+        if result:
+            print_results(resolution_d)
+        else:
+            print_knowledge(premises.union(sos))
         print('[CONCLUSION]: ' + to_string(goal) + ' is ' + ('true' if result else 'unknown'))
 
     elif args.action == 'cooking':

@@ -99,4 +99,4 @@ def print_knowledge(clauses: set):
     print('Constructed with knowledge:')
     for c in clauses:
         print(to_string(c))
-    print('')
+    print('===============')
