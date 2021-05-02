@@ -4,7 +4,7 @@ from util import print_results, to_string, print_knowledge
 
 
 def cooker(clauses: set, commands: list):
-
+    print('Constructed with knowledge:')
     print_knowledge(clauses)
 
     for command in commands:
@@ -18,7 +18,8 @@ def cooker(clauses: set, commands: list):
         elif command[1] == '?':
             result, resolution_d = resolution(clauses.copy(), negate_goal(command[0]))
 
-            if result : print_results(resolution_d)
+            if result:
+                print_results(resolution_d)
             print('[CONCLUSION]: ' + to_string(command[0]) + ' is ' + ('true' if result else 'unknown'))
             print('')
 

@@ -96,8 +96,8 @@ def get_index(clause, premises, resolvents):
 
 
 def print_knowledge(clauses: set):
-    print('Constructed with knowledge:')
     cnt = 1
     for c in clauses:
         print(str(cnt) + '. ' + to_string(c))
+        cnt += 1
     print('===============')
