@@ -2,8 +2,8 @@ from util import *
 
 
 def resolution(premises: set, neg_goal: set):
-    knowledge = remove_redundant(remove_irrelevant(premises))
-    set_of_support = remove_redundant(remove_irrelevant(neg_goal))
+    knowledge = remove_redundant(remove_irrelevant(premises), premises.union(neg_goal))
+    set_of_support = remove_redundant(remove_irrelevant(neg_goal), premises.union(knowledge))
 
     checked = set()
 
@@ -32,8 +32,8 @@ def resolution(premises: set, neg_goal: set):
         if all(r in knowledge.union(set_of_support) for r in new):
             return False, parents
 
-        knowledge = remove_redundant(remove_irrelevant(knowledge.union(set_of_support)))
-        set_of_support = remove_redundant(remove_irrelevant(new))
+        knowledge = remove_redundant(remove_irrelevant(knowledge.union(set_of_support)), knowledge.union(set_of_support))
+        set_of_support = remove_redundant(remove_irrelevant(new), knowledge.union(set_of_support))
 
 
 def select_clauses(sos, knowledge):

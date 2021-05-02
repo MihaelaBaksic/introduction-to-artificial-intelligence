@@ -6,8 +6,8 @@ def remove_irrelevant(clauses: set):
     return {clause for clause in clauses if not is_tautology(clause)}
 
 
-def remove_redundant(clauses: set):
-    return {c1 for c1 in clauses if not any(c1 >= c2 and c1 != c2 for c2 in clauses)}
+def remove_redundant(clauses: set, complete_knowledge: set):
+    return {c1 for c1 in clauses if not any(c1 >= c2 and c1 != c2 for c2 in complete_knowledge)}
 
 
 def is_tautology(clause):
