@@ -43,3 +43,50 @@ def partition_set_by_feature_values(dataset: list, feature: str):
 
     print(partitions)
     return partitions
+
+
+def get_partition_for_feature_value(dataset: list, feature: str, feature_value: str):
+    partitions = partition_set_by_feature_values(dataset, feature)
+
+    if feature_value in partitions:
+        return partitions[feature_value]
+    else:
+        # do something defined in the PDF
+        return 1
+
+
+def has_features(dataset):
+    for example in dataset:
+        if len(example.keys()) <= 1:
+            return False
+    return True
+
+
+def get_partition_for_label_value(dataset, label, label_value):
+    return [e for e in dataset if e[label] == label_value]
+
+
+def get_most_frequent_label_value(dataset, label):
+    label_frequencies = dict()
+
+    for example in dataset:
+        label_value = example[label]
+        if label_value not in label_frequencies.keys():
+            label_frequencies[label_value] = 0
+        label_frequencies[label_value] += 1
+
+    return max(label_frequencies.keys(), key=lambda l: (label_frequencies[l], l))
+
+
+def dataset_equals(ds1, ds2):
+    return False
+
+
+def get_most_discriminative_feature(dataset: list, features: set, label: str):
+    return max(features, key=lambda f: (information_gain(dataset, label, f), f))
+
+
+def get_feature_values(dataset, feature):
+    return {f[feature] for f in dataset if feature in f.keys()}
+
+
