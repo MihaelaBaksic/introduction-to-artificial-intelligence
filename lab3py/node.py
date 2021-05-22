@@ -31,7 +31,7 @@ class Node:
 
 
 def tree_branches(node):
-    leafs = queue.Queue()
+    leaves = queue.Queue()
     to_check = queue.Queue()
 
     to_check.put(node)
@@ -39,15 +39,15 @@ def tree_branches(node):
     while not to_check.empty():
         current_node = to_check.get()
         if current_node.is_leaf():
-            leafs.put(current_node)
+            leaves.put(current_node)
         else:
             for child in current_node.children.values():
                 to_check.put(child)
 
     branches = []
 
-    while not leafs.empty():
-        branches.append(leaf_track(leafs.get()))
+    while not leaves.empty():
+        branches.append(leaf_track(leaves.get()))
 
     return branches
 

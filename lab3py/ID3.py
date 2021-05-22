@@ -1,6 +1,7 @@
 from node import *
 from util import *
 
+
 class ID3:
     hyperparameters: list
     tree: Node
@@ -9,19 +10,19 @@ class ID3:
         self.hyperparameters = hyperparameters
 
     def fit(self, train_dataset, features, label):
-        self.tree = self.__id3_build(train_dataset, train_dataset, features, label)
+        self.tree = self.__id3_build(train_dataset, train_dataset, features, label, self.hyperparameters)
 
     def predict(self, test_dataset):
         return [self.__predict_one(test) for test in test_dataset]
 
-    def __id3_build(self, dataset, dataset_parent, features: set, label: str, depth=1):
+    def __id3_build(self, dataset, dataset_parent, features: set, label: str, depth_limit: int, depth=1):
         if not has_features(dataset):
             max_label_value = get_most_frequent_label_value(dataset_parent, label)
             return Node(max_label_value, depth)
 
         max_label_value = get_most_frequent_label_value(dataset, label)
 
-        if not features or num_distinct_label_values(dataset, label) <= 1:
+        if not features or num_distinct_label_values(dataset, label) <= 1 or depth_limit == 0:
             return Node(max_label_value, depth)
 
         discriminative_feature = get_most_discriminative_feature(dataset, features, label)
@@ -31,7 +32,7 @@ class ID3:
 
         for f_v in get_feature_values(dataset, discriminative_feature):
             new_features = features - set((discriminative_feature,))
-            child = self.__id3_build(partitioned_dataset[f_v], dataset, new_features, label, depth + 1)
+            child = self.__id3_build(partitioned_dataset[f_v], dataset, new_features, label, depth_limit-1, depth + 1)
             node.add_child(f_v, child)
 
         return node
@@ -41,7 +42,6 @@ class ID3:
         while not current_node.is_leaf():
             test_feature_value = test[current_node.feature]
             if test_feature_value not in current_node.children.keys():
-                print("Unknown test feature value")
                 return current_node.most_frequent_label_value
             else:
                 current_node = current_node.children[test_feature_value]
@@ -71,7 +71,7 @@ def get_confusion_matrix(dataset: list, predictions: list, label: str):
     for i in range(0, n):
         label_index[label_values[i]] = i
 
-    matrix = [[0]*n for i in range(n)]  # row -> true class, column -> predicted class
+    matrix = [[0] * n for i in range(n)]  # row -> true class, column -> predicted class
 
     for i in range(0, len(predictions)):
         true_class = dataset[i][label]

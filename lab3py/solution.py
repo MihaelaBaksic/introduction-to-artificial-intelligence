@@ -9,9 +9,13 @@ if __name__ == '__main__':
 
     test_set = loader.load_test_dataset(arguments.args.test)
 
-    model = ID3()
+    depth_limit = math.inf
+    if arguments.args.depth is not None:
+        depth_limit = int(arguments.args.depth)
+
+    model = ID3(depth_limit)
     model.fit(training_set, features, label)
-    print("[BRANCHES]")
+    print("[BRANCHES]:")
     for branch in tree_branches(model.tree):
         print(branch)
 
@@ -26,6 +30,5 @@ if __name__ == '__main__':
 
     for line in matrix:
         print(" ".join([str(x) for x in line]))
-
 
     i = 1
