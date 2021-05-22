@@ -10,3 +10,4 @@ if __name__ == '__main__':
 
     model = ID3()
     model.fit(training_set, features, label)
+    i = 1

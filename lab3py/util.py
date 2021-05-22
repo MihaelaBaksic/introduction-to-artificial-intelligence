@@ -41,7 +41,6 @@ def partition_set_by_feature_values(dataset: list, feature: str):
         del par_entry[feature]
         partitions[feature_value].append(par_entry)
 
-    print(partitions)
     return partitions
 
 
@@ -80,6 +79,14 @@ def get_most_frequent_label_value(dataset, label):
 
 def dataset_equals(ds1, ds2):
     return False
+
+
+def num_distinct_label_values(dataset: list, label:str):
+    values = set()
+    for example in dataset:
+        values.add(example[label])
+
+    return len(values)
 
 
 def get_most_discriminative_feature(dataset: list, features: set, label: str):

@@ -1,7 +1,8 @@
 from node import *
 from util import *
-class ID3:
 
+
+class ID3:
     hyperparameters: list
     tree: Node
 
@@ -22,16 +23,17 @@ def id3_build(dataset, dataset_parent, features: set, label: str):
 
     max_label_value = get_most_frequent_label_value(dataset, label)
     max_label_dataset = get_partition_for_label_value(dataset, label, max_label_value)
-    if not features or dataset_equals(dataset, max_label_dataset):
+    if not features or num_distinct_label_values(dataset, label) <= 1:
         return Node(max_label_value)
 
     discriminative_feature = get_most_discriminative_feature(dataset, features, label)
     node = Node(discriminative_feature)
+
     partitioned_dataset = partition_set_by_feature_values(dataset, discriminative_feature)
 
     for f_v in get_feature_values(dataset, discriminative_feature):
-        child = id3_build(partitioned_dataset[f_v], dataset, features - discriminative_feature, label)
+        new_features = features - set((discriminative_feature,))
+        child = id3_build(partitioned_dataset[f_v], dataset, new_features, label)
         node.add_child(f_v, child)
 
     return node
-
