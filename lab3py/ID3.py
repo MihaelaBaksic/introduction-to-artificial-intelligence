@@ -50,8 +50,6 @@ class ID3:
 
 
 def calculate_accuracy(dataset: list, predictions: list, label: str):
-    print(len(dataset))
-    print(len(predictions))
     correct = 0
     for i in range(0, len(predictions)):
         if dataset[i][label] == predictions[i]:

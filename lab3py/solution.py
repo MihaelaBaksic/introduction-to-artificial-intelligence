@@ -6,12 +6,15 @@ from ID3 import *
 if __name__ == '__main__':
 
     training_set, label, features = loader.load_training_dataset(arguments.args.training)
-    # print("IG A: " + str(util.information_gain(training_set, label, 'temperature')))
 
-    test_set, features_test = loader.load_test_dataset(arguments.args.test)
+    test_set = loader.load_test_dataset(arguments.args.test)
 
     model = ID3()
     model.fit(training_set, features, label)
+    print("[BRANCHES]")
+    for branch in tree_branches(model.tree):
+        print(branch)
+
     predictions = model.predict(test_set)
     print("[PREDICTIONS]: " + " ".join(predictions))
 
@@ -23,3 +26,6 @@ if __name__ == '__main__':
 
     for line in matrix:
         print(" ".join([str(x) for x in line]))
+
+
+    i = 1
