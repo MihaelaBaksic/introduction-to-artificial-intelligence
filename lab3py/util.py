@@ -26,6 +26,7 @@ def information_gain(dataset: list, label: str, feature: str):
         E_p = entropy(partition, label)
         IG -= len(partition) * E_p / len(dataset)
 
+    print("IG(" + feature + ') = ' + str(IG))
     return IG
 
 
@@ -74,11 +75,8 @@ def get_most_frequent_label_value(dataset, label):
             label_frequencies[label_value] = 0
         label_frequencies[label_value] += 1
 
-    return max(label_frequencies.keys(), key=lambda l: (label_frequencies[l], l))
-
-
-def dataset_equals(ds1, ds2):
-    return False
+    max_frequency = max(label_frequencies.values())
+    return min((x for x in label_frequencies.keys() if abs(label_frequencies[x] - max_frequency) < 1E-10))
 
 
 def num_distinct_label_values(dataset: list, label:str):
@@ -90,7 +88,9 @@ def num_distinct_label_values(dataset: list, label:str):
 
 
 def get_most_discriminative_feature(dataset: list, features: set, label: str):
-    return max(features, key=lambda f: (information_gain(dataset, label, f), f))
+    ig_feature = list(map(lambda f: (information_gain(dataset, label, f), f), features))
+    max_ig = max(ig_feature, key=lambda x: x[0])[0]
+    return min((f[1] for f in ig_feature if abs(f[0] - max_ig) < 1E-10))
 
 
 def get_feature_values(dataset, feature):

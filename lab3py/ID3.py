@@ -16,7 +16,7 @@ class ID3:
         return [self.__predict_one(test) for test in test_dataset]
 
     def __id3_build(self, dataset, dataset_parent, features: set, label: str, depth_limit: int, depth=1):
-        if not has_features(dataset):
+        if not dataset:
             max_label_value = get_most_frequent_label_value(dataset_parent, label)
             return Node(max_label_value, depth)
 
