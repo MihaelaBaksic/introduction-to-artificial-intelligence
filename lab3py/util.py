@@ -26,7 +26,7 @@ def information_gain(dataset: list, label: str, feature: str):
         E_p = entropy(partition, label)
         IG -= len(partition) * E_p / len(dataset)
 
-    print("IG(" + feature + ') = ' + str(IG))
+    # print("IG(" + feature + ') = ' + str(IG))
     return IG
 
 

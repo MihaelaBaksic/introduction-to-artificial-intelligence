@@ -1,6 +1,5 @@
 import arguments
 import loader
-import math
 from ID3 import *
 
 if __name__ == '__main__':
@@ -31,4 +30,4 @@ if __name__ == '__main__':
     for line in matrix:
         print(" ".join([str(x) for x in line]))
 
-    i = 1
+
